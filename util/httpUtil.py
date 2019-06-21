@@ -11,15 +11,19 @@ default_headers = {
 }
 
 default_urls = {
-    "check": ("GET", "https://wap.91160.com/search/complex.html?", {"keyword": "", "from": "", "lat": "0", "lng": "0", "search_city_id": "5"})
+    "check": ("GET", "https://wap.91160.com/search/complex.html?", {"keyword": "", "from": "", "lat": "0", "lng": "0", "search_city_id": "5"}),
+    "city": ("GET", "https://wap.91160.com/main/city.html", {})
 }
 
 
 class HttpObject(object):
-    def __init__(self, user_id):
+    def __init__(self, user_id=None):
         self.global_session = session_manger.session
-        self.user_id = user_id
-        self.cookie = main_config[user_id]["cookie"]
+        if user_id:
+            self.user_id = user_id
+            self.cookie = main_config[user_id]["cookie"]
+        else:
+            self.user_id = self.cookie = None
 
     def global_session(self):
         return self.global_session
